@@ -79,22 +79,37 @@ int sum(node *root)
     return 0;
     return root->data+sum(root->left)+sum(root->right);
 }
-void sumreplacement(node *root)
+void sumreplacement1(node *root) // o(n2) bcoz for each nodes we are calculating its sum. and for calculating sum, its takes 0(n) 
 {
     if(root==NULL)
     return;
     if(root->left==NULL and root->right==NULL)
 	return ;
     root->data=sum(root->left)+sum(root->right);
-    sumreplacement(root->left);
-    sumreplacement(root->right);
+    sumreplacement1(root->left);
+    sumreplacement1(root->right);
+}
+
+int sumreplacement2(node *root) //o(n)
+{
+    if(root==NULL)
+    return 0;
+    if(root->left==NULL and root->right==NULL)
+	return root->data;
+
+    // Recursive
+    int  temp=root->data; // storing current root node value so that we could return to its root
+    int leftSum=sumreplacement2(root->left);
+    int rightSum=sumreplacement2(root->right);
+    root->data=leftSum+rightSum;
+    return temp+root->data;
 }
 
 
 
 int main() {
     node *root=buildTree();
-   sumreplacement(root);
+   sumreplacement2(root);
     levelorderPrintingTree(root);
 
 }
