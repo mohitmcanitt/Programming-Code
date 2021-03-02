@@ -1,4 +1,5 @@
 #include <iostream>
+#include<queue>
 using namespace std;
 
 class node{
@@ -58,6 +59,25 @@ void postorderPrintingTree(node *root)  // Left Right root
    ;
 }
 
+void levelorderPrintingTree(node *root)
+{
+    if(root==NULL)
+    return;
+    queue<node *>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        node *temp=q.front();
+            q.pop();
+            if(temp==NULL)
+                continue;
+            cout<<temp->data<<" ";
+            q.push(temp->left);
+            q.push(temp->right);
+    }
+}
+
+
 int main() {
     node *root=buildTree();
     cout<<"Preorder Printing ";
@@ -68,14 +88,17 @@ int main() {
     cout<<endl;
     cout<<"Preorder Printing ";
     postorderPrintingTree(root);
+    cout<<endl;
+    cout<<"Levelorder Printing ";
+    levelorderPrintingTree(root);
 }
-
 /*
-Input : 8 10 1 -1 -1 6 9 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
-Output: 
-
+INPUT 
+8 10 1 -1 -1 6 9 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
+OUTPUT
 Preorder Printing 8 10 1 6 9 7 3 14 13 
 Inorder Printing 1 10 9 6 7 8 3 13 14 
-Preorder Printing 1 9 7 6 10 13 14 3 8
+Preorder Printing 1 9 7 6 10 13 14 3 8 
+Levelorder Printing 8 10 3 1 6 14 9 7 13 
 
 */
