@@ -43,7 +43,8 @@ int height(node *root)
             return 0;
         return 1+max(height(root->left),height(root->right));
     }
-    bool isBalanced(node* root) {
+    bool isBalanced(node* root) // 0(n^2)
+    {
         if(root==NULL)
             return true;
         int lh=height(root->left);
@@ -54,6 +55,34 @@ int height(node *root)
            return false;
        
     }
+// class HBPair{
+
+//     public:
+//     int height;
+//     bool isBalance;
+// };
+
+
+// HBPair isBalanced(node* root) // o(n)
+// {
+//         HBPair p;
+//         if(root==NULL)
+//         {
+//             p.height=0;
+//             p.isBalance=true;
+//             return p;
+//         }
+//         HBPair left=isBalanced(root->left);
+//         HBPair right=isBalanced(root->right);
+//         p.height=max(left.height,right.height)+1;
+//         if(abs(left.height-right.height) and left.isBalance and right.isBalance)
+//             p.isBalance=true;
+//             else
+//             p.isBalance=false;
+//             return p;
+            
+       
+//     }
 
 int main() {
     node *root=buildTree();
