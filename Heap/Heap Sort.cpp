@@ -76,7 +76,7 @@ void heapSort(vector<int>&v)
 
 int main() {
     vector<int>v={5,41,3,2,12};
-    // Make vector in heap array , let make it min heap
+    // Make vector in heap array , let make it max heap
     convert_into_heap_array(v);
     heapSort(v);
     for(auto x:v)
