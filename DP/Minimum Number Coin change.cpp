@@ -23,16 +23,13 @@ int solve(vector<int>coins,int amount)
     {
         int minCoinRequired=INT_MAX;
         vector<int>allowedDenomination=helper(coins,i);
-        if(allowedDenomination.size()==0)  //means for the given amount denomination  is not allowed
-        {
-             dp[i]=minCoinRequired;
-             continue;
-        }
         for(auto x:allowedDenomination)
         {
             minCoinRequired=min(minCoinRequired,dp[i-x]);
         }
-        
+        if(minCoinRequired==INT_MAX)
+        dp[i]=INT_MAX;
+        else
         dp[i]=minCoinRequired+1;
     }
     if(dp[amount]==INT_MAX)
@@ -42,8 +39,7 @@ int solve(vector<int>coins,int amount)
 }
 
 int main() {
-    vector<int>coins={1,7,10};
-    int amount=15;
+    vector<int>coins={2};
+    int amount=3;
     cout<<solve(coins,amount);
 }
-// output : 3
