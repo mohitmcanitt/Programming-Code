@@ -1,3 +1,5 @@
+// O(logn) ---> number of bits in b
+
 long long int fastExpo(int a,int b)
 {
     long long int ans=1;
