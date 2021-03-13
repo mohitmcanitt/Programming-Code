@@ -34,13 +34,15 @@ class Graph{
         adjList[v].push_back(u);
     }
 
-    int printShortestDistance(int src,int dest)
+    int printShortestDistance(int src,int dest,vector<int>&v)
     {
+
+        map<int,int>path; // store path
         map<int,int>dist; // store vertex and their distance
         for(auto node:adjList)  // Mark all nodes distance from src equals to INT_MAX
             dist[node.first]=INT_MAX;
         dist[src]=0; // src to src 0 distance
-
+        path[src]=src;
         queue<int>q;
         q.push(src);
 
@@ -52,17 +54,26 @@ class Graph{
             q.pop();
             for(auto nbhrs:adjList[parent])
             {
-                if(dist[nbhrs]==INT_MAX)
+                if(dist[nbhrs]==INT_MAX) 
                 {
                     q.push(nbhrs);
                     dist[nbhrs]=dist[parent]+1;
+                    path[nbhrs]=parent;// path of current child will be parent
                 }
             }
         }
 
+        // for path printing
+        // just back track from dest to src
+        // path[dest] will store what is precedcessor of destination
+        while(dest!=src)  
+            {
+                v.push_back(dest);
+                dest=path[dest];
+            }
+        v.push_back(src);
         return dist[dest];
     }
-
 };
 
 
@@ -81,7 +92,11 @@ int main()
     g.addEdge( 6, 7);
 
     int source = 2, dest = 5;
-
-    cout<<"Distance between "<<source<<" and "<<dest<<" is "<<g.printShortestDistance( source, dest);
+    vector<int>path;
+    int distance=g.printShortestDistance( source, dest,path);
+    cout<<"Distance between "<<source<<" and "<<dest<<" is "<<distance<<endl;
+    cout<<"Path : ";
+    for(int i=path.size()-1;i>=0;i--)
+       cout<<path[i]<<"->";
 
 }
