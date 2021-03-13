@@ -1,5 +1,3 @@
-// Only horizontal and vertical
-
 void solve(pair<int,int>src,map<pair<int,int>,bool>&visited,vector<vector<char>>& grid)
     {
         queue<pair<int,int>>q;
@@ -40,6 +38,10 @@ void solve(pair<int,int>src,map<pair<int,int>,bool>&visited,vector<vector<char>>
     
     
     int numIslands(vector<vector<char>>& grid) {
+        // fast input output worked
+         ios_base::sync_with_stdio(false);
+         cin.tie(NULL);
+        // without fast io 1 test case was not passed
         int row=grid.size();
         int col=grid[0].size();
         map<pair<int,int>,bool>visited;
