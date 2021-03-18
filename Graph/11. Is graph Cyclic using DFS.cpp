@@ -1,13 +1,5 @@
 /*
-Cycle detection using BFS
- For every visited vertex ‘v’,
-  if there is an adjacent ‘u’ 
-  such that u is already visited 
-  and u is not a parent of v,
-   then there is a cycle in the graph. 
-   If we don’t find such an adjacent for any vertex, 
-   we say that there is no cycle.
-Refer : https://www.geeksforgeeks.org/detect-cycle-in-an-undirected-graph-using-bfs/
+Refer : https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
 */
 
 #include<bits/stdc++.h>
