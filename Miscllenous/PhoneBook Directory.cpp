@@ -8,7 +8,7 @@ Functionalities:
 1. Add contacts
 2. Delete contact
 3. Print all contacts of Phone Book
-4. Print all contacts matching with prefix word
+4. Print all contacts matching with prefix word// Auto complete feature
 5. Count Number of contacts in PhoneBook Directory
 
 
