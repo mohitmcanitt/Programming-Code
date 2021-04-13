@@ -11,6 +11,10 @@ Functionalities:
 4. Print all contacts matching with prefix word
 5. Count Number of contacts in PhoneBook Directory
 
+
+For documentation:
+https://krishankantsinghal.medium.com/how-to-implement-phonebook-using-tries-data-structure-b19a83ac7f1e
+
 */
 
 #include<bits/stdc++.h>
