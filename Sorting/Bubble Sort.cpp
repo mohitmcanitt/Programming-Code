@@ -39,7 +39,27 @@ void bubble_sort(int *arr,int n)
            break;
     }
 }
+/* 
+// Recursive code
+void bubble_helper(int *arr,int i, int j)
+{
+    if(i==j)
+     return;
+    if(arr[i]<arr[i-1])
+        swap(arr[i],arr[i-1]);
+    bubble_helper(arr,i+1,j);        
+}
 
+void recur_bubbleSort(int *arr,int n,int index=0)
+{
+   if(index+1==n)
+    return;
+
+    bubble_helper(arr,1,n);
+    recur_bubbleSort(arr,n,index+1);
+}
+
+*/
 
 int main() {
     int arr[]={5,4,3,1,2};
