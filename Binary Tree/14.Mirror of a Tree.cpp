@@ -26,39 +26,7 @@ node *buildTree()
     root->right=buildTree();
     return root;    
 }
-int height(node *root)
-{
-    if(root==NULL)
-    
-    return 0;
-    
-    int lh=height(root->left);
-    int rh=height(root->right);
-    return 1+max(lh,rh);
-}
-void printkthlevel(node *root,int k)
-{
-    if(root==NULL)
-    return;
-    if(k==1)
-    {
-        
-        cout<<root->data<<" ";
-        return;
-    }
-    printkthlevel(root->left,k-1);
-    printkthlevel(root->right,k-1);
-}
 
-void LevelOrder(node *root)
-{
-    int hgt=height(root);
-    for(int k=1;k<=hgt;k++)
-    {
-        printkthlevel(root,k);
-        cout<<endl;
-    }
-}       
 void mirror(node *root)
 {
     if(root==NULL)
