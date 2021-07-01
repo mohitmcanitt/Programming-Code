@@ -43,6 +43,31 @@ void printRightView(node *root,int level,int &maxlevel)
     printRightView(root->left,level+1,maxlevel); 
 }
 
+
+// void printleftView(node *root)
+// {
+//     if(root==NULL)
+//            return;
+//     queue<node *>q;
+//     q.push(root);
+//     while(!q.empty())
+//     {
+//         int n=q.size();
+//         for(int i=1;i<=n;i++)
+//         {
+//             queue<node*>temp=q.front();
+//             q.pop();
+//             if(i==n)
+//                 cout<<temp->data;
+//             if(temp->left)
+//                    q.push(temp->left);
+//             if(temp->right)
+//                     q.push(temp->right);
+//         }
+//     }   
+// }       
+
+
 void printleftView(node *root,int level,int &maxlevel)
 {
     if(root==NULL)
@@ -56,6 +81,29 @@ void printleftView(node *root,int level,int &maxlevel)
     printleftView(root->left,level+1,maxlevel); 
     printleftView(root->right,level+1,maxlevel);
 }
+
+// void printleftView(node *root)
+// {
+//     if(root==NULL)
+//            return;
+//     queue<node *>q;
+//     q.push(root);
+//     while(!q.empty())
+//     {
+//         int n=q.size();
+//         for(int i=1;i<=n;i++)
+//         {
+//             queue<node*>temp=q.front();
+//             q.pop();
+//             if(i==1)
+//                 cout<<temp->data;
+//             if(temp->left)
+//                    q.push(temp->left);
+//             if(temp->right)
+//                     q.push(temp->right);
+//         }
+//     }   
+// }       
 
 int main() {
 
