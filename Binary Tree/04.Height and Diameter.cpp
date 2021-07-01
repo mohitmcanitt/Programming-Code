@@ -47,6 +47,29 @@ int diameter(node *root)
     int op3=diameter(root->right);
     return max(1+op1,max(op2,op3));
 }
+//Optimized O(n)
+//pair<int,int>p;
+// p.first ---> height;
+// p.second --->diameter
+pair<int,int> diameter(node *root)
+{
+    if(root==NULL)
+    return make_pair(0,0);
+
+    pair<int,int>left=diameter(root->left);
+    pair<int,int>right=diameter(root->right);
+
+    pair<int,int>p;
+    
+    p.first=max(left.first,right.first)+1;
+
+    int op1=left.first+right.first;
+    int op2=left.second;
+    int op3=right.second;
+
+    p.second=max(op1,max(op2,op3));
+    return p;
+}
 
 int main() {
     node *root=buildTree();
