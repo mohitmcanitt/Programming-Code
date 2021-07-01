@@ -28,7 +28,7 @@ node *buildTree()
     return root;    
 }
 
-
+//The height of the binary tree is the longest path from root node to any leaf node in the tree
 int height(node *root)
 {
     if(root==NULL)
@@ -37,7 +37,7 @@ int height(node *root)
     int rheight=height(root->right);
     return 1+max(lheight,rheight);
 }
-
+//he diameter of a tree (sometimes called the width) is the number of nodes on the longest path between two end nodes. 
 int diameter(node *root)
 {
     if(root==NULL)
@@ -45,7 +45,7 @@ int diameter(node *root)
     int op1=height(root->left)+height(root->right);
     int op2=diameter(root->left);
     int op3=diameter(root->right);
-    return max(op1,max(op2,op3));
+    return max(1+op1,max(op2,op3));
 }
 
 int main() {
