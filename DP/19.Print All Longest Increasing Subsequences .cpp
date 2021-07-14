@@ -72,7 +72,7 @@ void lis(vector<int>v)
     vector<int>dp(v.size(),1);
     for(int i=1;i<v.size();i++)
     {
-        int max_len=1;
+        int max_len=0;
         for(int j=i-1;j>=0;j--)
         {
             if(v[i]>v[j])
