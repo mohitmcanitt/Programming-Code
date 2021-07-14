@@ -5,7 +5,7 @@ then we will add 1 in ans and move postion of x and y by 1 to solve for remainin
 else if char are not equal then 
   case 1: increase x by 1 and y remain unchanged solve(x+1,y)
   case 2: increase y by 1 and x remain unchanged solve(x,y+1)
-  
+ 
   add max(case1,case2) in out answers 
   
 */ 
@@ -46,8 +46,8 @@ int solve(int x,int y,string s1,string s2,vector<vector<int>>&dp)
         return solve(text1.length()-1,text2.length()-1,text1,text2,dp);
     }
    // Tabulation
-   /* if character at i and j is same dp[i][j]=1+dp[i-1][j-1] means previous diagonal cell
-   /* If character at i and is not same then dp[i][j]=max(dp[i-1][j],dp[i][j-1]) means 1 left and 1 up
+   // if character at i and j is same dp[i][j]=1+dp[i-1][j-1] means previous diagonal cell
+   // If character at i and is not same then dp[i][j]=max(dp[i-1][j],dp[i][j-1]) means 1 left and 1 up
         
    int longestCommonSubsequence(string text1, string text2) {
         
