@@ -1,67 +1,75 @@
-void solve(pair<int,int>src,map<pair<int,int>,bool>&visited,vector<vector<char>>& grid)
+/*
+Leetcode : https://leetcode.com/problems/number-of-islands/
+
+NOTE : Declaring array as int grid[row][col] will create problem while pass in function
+Input:
+4 5
+1 1 0 0 0
+1 1 0 0 0
+0 0 1 0 0
+0 0 0 1 1
+
+Output:
+No of islands 3
+
+*/
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(char **grid,bool **visited,int x,int y,int row,int col)
+{
+    visited[x][y]=true;
+    // UP
+    if(x-1>=0 and grid[x-1][y]=='1' and visited[x-1][y]==false)
+        dfs(grid,visited,x-1,y,row,col);
+    // DOWN
+    if(x+1<row and grid[x+1][y]=='1' and visited[x+1][y]==false)
+        dfs(grid,visited,x+1,y,row,col);
+    // LEFT
+    if(y-1>=0 and grid[x][y-1]=='1' and visited[x][y-1]==false)
+        dfs(grid,visited,x,y-1,row,col);
+    // Right 
+    if(y+1<col and grid[x][y+1]=='1' and visited[x][y+1]==false)
+        dfs(grid,visited,x,y+1,row,col);           
+}
+
+int main() {
+    int row;
+    int col;
+    cin>>row>>col;
+
+    char **grid=new char*[row];
+    for(int i=0;i<row;i++)
+        grid[i]=new char[col];
+
+    for(int i=0;i<row;i++)
+        for(int j=0;j<col;j++)
+            cin>>grid[i][j];    
+
+    bool **visited=new bool*[row];
+    for(int i=0;i<row;i++)
+        visited[i]=new bool[col];    
+
+    for(int i=0;i<row;i++)
+        for(int j=0;j<col;j++)
+            visited[i][j]=false;
+
+   int no_of_island=0;
+   for(int i=0;i<row;i++)
     {
-        queue<pair<int,int>>q;
-        q.push(src);
-        visited[src]=true;
-        while(!q.empty())
+        for(int j=0;j<col;j++)
         {
-            pair<int,int> node=q.front();
-            q.pop();
-            int i=node.first;
-            int j=node.second;
-            if(i-1>=0 and grid[i-1][j]=='1' and visited[make_pair(i-1,j)]==false)  
-            {
-                q.push(make_pair(i-1,j));
-                visited[make_pair(i-1,j)]=true;
-            }
-                 
-            if(i+1<grid.size() and grid[i+1][j]=='1' and visited[make_pair(i+1,j)]==false)
-            {
-                q.push(make_pair(i+1,j));
-                visited[make_pair(i+1,j)]=true;
-            }
-                
-            if(j-1>=0 and grid[i][j-1]=='1' and visited[make_pair(i,j-1)]==false)
-            {
-                q.push(make_pair(i,j-1));
-                visited[make_pair(i,j-1)]=true;
-            }
-                
-            if(j+1<grid[0].size() and grid[i][j+1]=='1' and visited[make_pair(i,j+1)]==false)
-            {
-                  q.push(make_pair(i,j+1));
-                visited[make_pair(i,j+1)]=true;
-            }
-              
+            if(grid[i][j]=='1' and visited[i][j]==false)
+                {
+                    no_of_island++;
+                    dfs(grid,visited,i,j,row,col);
+                }
         }
-    }
-    
-    
-    int numIslands(vector<vector<char>>& grid) {
-        // fast input output worked
-         ios_base::sync_with_stdio(false);
-         cin.tie(NULL);
-        // without fast io 1 test case was not passed
-        int row=grid.size();
-        int col=grid[0].size();
-        map<pair<int,int>,bool>visited;
-        for(int i=0;i<row;i++)
-            for(int j=0;j<col;j++)
-                visited.insert(make_pair(make_pair(i,j),false));
-        
-        int count=0;
-        
-        for(auto x:visited)
-        {
-            if(x.second==false and grid[x.first.first][x.first.second]=='1')
-            {
-                count++;
-                solve(x.first,visited,grid);
-                for(auto x:visited)
-            cout<<x.second<<" ";
-                cout<<endl;
-            }
-        }
-        
-        return count;
-    }
+    } 
+   cout<<"No of islands "<<no_of_island;
+}
