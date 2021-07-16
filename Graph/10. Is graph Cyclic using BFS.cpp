@@ -82,3 +82,141 @@ int main() {
     else
     cout<<"Graph is not cyclic\n";
 }
+
+/*
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// Only for undirected graph
+
+bool isCyclic(int V,vector<int>adj[])
+{
+    bool visited[V]={false};
+    int par[V];
+
+    for(int i=0;i<V;i++)
+    {
+        if(visited[i]==false)
+        {
+            queue<int>q;
+            q.push(i);
+            par[i]=-1;
+            visited[i]=true;
+            while(!q.empty())
+            {
+                int temp=q.front();
+                q.pop();
+                for(auto nbhrs:adj[temp])
+                {
+                    if(visited[nbhrs]==true and par[nbhrs]!=temp)
+                    {
+                        for(int i=0;i<V;i++)
+                           cout<<i<<" "<<par[i]<<endl;
+                         return true;                           
+                    }
+                       
+                    else if(visited[nbhrs]==false) 
+                        {
+                            visited[nbhrs]=true;
+                            par[nbhrs]=temp;
+                            q.push(nbhrs);
+                        }   
+                }
+            }
+            
+        }
+        
+       
+    }
+    
+    return false;
+  
+}
+
+int main() {
+    int v,e;
+    cin>>v>>e;
+    vector<int>adj[v];
+    while(e--)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+    }
+    
+    if(isCyclic(v,adj))
+        cout<<"Graph Contains Cycle";
+    else
+        cout<<"Graph Doesn't contains any cycle";    
+}
+/*
+GFG code
+#include<bits/stdc++.h>
+using namespace std;
+
+// Only for undirected graph
+
+bool isCyclic(int V,vector<int>adj[])
+{
+    bool visited[V]={false};
+    int par[V];
+
+    for(int i=0;i<V;i++)
+    {
+        if(visited[i]==false)
+        {
+            queue<int>q;
+            q.push(i);
+            par[i]=-1;
+            visited[i]=true;
+            while(!q.empty())
+            {
+                int temp=q.front();
+                q.pop();
+                for(auto nbhrs:adj[temp])
+                {
+                    if(visited[nbhrs]==true and par[nbhrs]!=temp)
+                    {
+                        for(int i=0;i<V;i++)
+                           cout<<i<<" "<<par[i]<<endl;
+                         return true;                           
+                    }
+                       
+                    else if(visited[nbhrs]==false) 
+                        {
+                            visited[nbhrs]=true;
+                            par[nbhrs]=temp;
+                            q.push(nbhrs);
+                        }   
+                }
+            }
+            
+        }
+        
+       
+    }
+    
+    return false;
+  
+}
+
+int main() {
+    int v,e;
+    cin>>v>>e;
+    vector<int>adj[v];
+    while(e--)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+    }
+    
+    if(isCyclic(v,adj))
+        cout<<"Graph Contains Cycle";
+    else
+        cout<<"Graph Doesn't contains any cycle";    
+}
+
+
+*/
