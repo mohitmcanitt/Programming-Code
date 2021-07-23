@@ -1,156 +1,141 @@
 /*
 Input:
-
-2
-2
-2
-SET 1 2 GET 1
 2
 7
 SET 1 2 SET 2 3 SET 1 5 SET 4 5 SET 6 7 GET 4 GET 1
 
 Output:
-2 
 5 -1 
 */
 
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
+class Node{
+    public:
 
-struct Node{
-    
     int key;
     int value;
-    Node* prev;
-    Node* next;
-    
-    Node(int k,int v)
+    Node *next;
+    Node *prev;
+
+    Node(int key,int value)
     {
-        key = k;
-        value = v;
-        next = prev = NULL;
+        this->key=key;
+        this->value=value;
+        next=NULL;
+        prev=NULL;
     }
 };
 
+class LRUcache{
 
+    unordered_map<int,Node*>um;
+    int capacity;
+    int count;
+    Node *head;
+    Node *tail;
 
-class LRUCache
-{
-private:
-    unordered_map<int,Node*> mymap;
-    int capacity,count;
-    Node* head;
-    Node* tail;
-
-public:
-    LRUCache(int cap)
+    public:
+    LRUcache(int cap)
     {
-        capacity = cap;
-        head = new Node(0,0);
-        tail = new Node(0,0);
-        head->next = tail;
-        tail->prev = head;
-        head->prev = NULL;
-        tail->next = NULL;
-        count = 0;
+        capacity=cap;
+        count=0;
+        head=new Node(0,0);
+        tail=new Node(0,0);
+        head->next=tail;
+        tail->prev=head;
+        head->prev=NULL;
+        tail->next=NULL;
     }
     
-    void deleteNode(Node* node)
+    void deleteNode(Node *root)
     {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
+        root->prev->next=root->next;
+        root->next->prev=root->prev;
+        delete root;
     }
-    
-    void addToHead(Node* node)
+
+    void addFront(Node *node)
     {
-        node->next = head->next;
-        node->next->prev = node;
-        node->prev = head;
-        head->next = node;
+       node->next=head->next;
+       node->next->prev=node;
+       node->prev=head;
+       head->next=node;
+
     }
-    
     int get(int key)
     {
-        if(mymap.find(key) != mymap.end())
+        if(um.find(key)!=um.end()) // If key is present, move it front 
         {
-            Node* temp = mymap[key];
-            int result = temp->value;
-            deleteNode(temp);
-            addToHead(temp);
+            Node * it=um[key];
+            int result=it->value;
+            deleteNode(it);
+            Node *new_node=new Node(key,result);
+            addFront(new_node);
+            um[key]=new_node;
+        
             return result;
         }
-        
-        return -1;
-
+        else
+            return -1;
     }
-    
-    void set(int key, int value)
+    void set(int key,int val)
     {
-        
-        if(mymap.find(key) != mymap.end())
+        if(um.find(key)!=um.end()) // If key is present, move it front 
         {
-            Node* temp = mymap[key];
-            temp->value = value;
-            deleteNode(temp);
-            addToHead(temp);
+            auto it=um[key];
+            deleteNode(it);
+            Node *new_node=new Node(key,val);
+            addFront(new_node);
+            um[key]=new_node;
+        }
+        else 
+        {
+            if(count<capacity)
+            {
+                Node *new_node=new Node(key,val);
+                um[key]=new_node;
+                addFront(new_node);
+                count++;
+            }
+            else
+            {
+                um.erase(tail->prev->key);
+                deleteNode(tail->prev);
+                Node *new_node=new Node(key,val);
+                um[key]=new_node;
+                addFront(new_node);
+            }
+        }
+    }
+
+};
+
+int main() {
+    int cap;
+    cin>>cap;
+    int query;
+    cin>>query;
+    LRUcache obj(cap);
+    while(query--)
+    {
+        string s;
+        cin>>s;
+        if(s=="SET")
+        {
+            int key,val;
+            cin>>key>>val;
+            obj.set(key,val);
         }
         else
         {
-            Node* temp = new Node(key,value);
-            mymap[key] = temp;
-            
-            if(count<capacity)
-            {
-                count++;
-                addToHead(temp);
-            }
-            else
-            {
-                mymap.erase(tail->prev->key);
-                deleteNode(tail->prev);
-                addToHead(temp);
-            }
+            int key;
+            cin>>key;
+            cout<<obj.get(key)<<" ";
         }
     }
-};
+   
 
 
-
-
-int main()
-{
-    int t;
-    cin >> t;
-    while (t--)
-    {
-
-        int capacity;
-        cin >> capacity;
-        LRUCache *cache = new LRUCache(capacity);
-        
-        int queries;
-        cin >> queries;
-        while (queries--)
-        {
-            string q;
-            cin >> q;
-            if (q == "SET")
-            {
-                int key;
-                cin >> key;
-                int value;
-                cin >> value;
-                cache->set(key, value);
-            }
-            else
-            {
-                int key;
-                cin >> key;
-                cout << cache->get(key) << " ";
-            }
-        }
-        cout << endl;
-    }
-    return 0;
 }
