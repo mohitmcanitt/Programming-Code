@@ -1,4 +1,5 @@
-// https://www.geeksforgeeks.org/find-first-node-of-loop-in-a-linked-list/    
+// https://www.geeksforgeeks.org/find-first-node-of-loop-in-a-linked-list/ 
+// https://leetcode.com/problems/linked-list-cycle-ii/
 
 ListNode *detectloop(ListNode* head)
     {
