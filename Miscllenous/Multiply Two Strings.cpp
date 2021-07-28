@@ -1,5 +1,13 @@
 // leetcode : 43
 // https://leetcode.com/problems/multiply-strings/
+// for theory watch pep coding video
+// Approcach:
+// Our ans length will (length of num1 + length of num2).
+// WE WILL START STORING ANS FROM ans[len1+len2] ..and decrement -1 for each iteration of j
+// for outer loop , k will be reset to 1 less than previous k
+// Watch video of pep coding
+        
+
 string multiply(string num1, string num2) {
         if(num1[0]=='0' or num2[0]=='0')
             return "0";
