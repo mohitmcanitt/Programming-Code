@@ -1,90 +1,62 @@
 // Watch : prepcoding https://www.youtube.com/watch?v=tK4eez3syAQ
-#include <iostream>
-using namespace std;
 
-class Node{
-    public:
-    int data;
-    Node* next;
+// A : [ 9 -> 9 -> 9 ]
+// B : [ 1 ]
 
-    Node(int val)
-    {
-        data=val;
-        next=NULL;
-    }
-};
-
-Node *insert(Node* head,int val)
+// O/P : 1->0->0->0
+    
+int count(ListNode *head)
 {
-    Node* new_node=new Node(val);
-    if(head==NULL)
-        head=new_node;
-    else
-    {
-        Node* temp=head;
-        while(temp->next)
-            temp=temp->next;
-        temp->next=new_node;    
-    }    
-    return head;
-}
-Node *ans;
-void addFront(int val)
-{
-    Node *new_node=new Node(val);
-    new_node->next=ans;
-    ans=new_node;
-}
-
-int count(Node *head)
-{
-    if(head==NULL)
+    if(head==0)
         return 0;
-    return 1+count(head->next);    
+    return 1+count(head->next);
+}
+void addFront(ListNode *&head,int val)
+{
+    ListNode* new_node=new ListNode(val);
+    new_node->next=head;
+    head=new_node;
 }
 
-int helper(Node *head1,int pos1,Node *head2,int pos2)
+int helper(ListNode *l1,int pos1,ListNode *l2,int pos2,ListNode *&head)
 {
-    if(head1==NULL and head2==NULL)
+    if(l1==NULL and l2==NULL)
         return 0;
-    int data=0;    
+    int data=0;
     if(pos1>pos2)
     {
-        int carry=helper(head1->next,pos1-1,head2,pos2);
-        data=head1->data+carry;
-    }
-        
+        int carry=helper(l1->next,pos1-1,l2,pos2,head);
+        data=carry+l1->val;
+    }    
     else if(pos1<pos2)
     {
-        int carry=helper(head1,pos1,head2->next,pos2-1);       
-        data=head2->data+carry;
-    } 
-    else   
+        int carry=helper(l1,pos1,l2->next,pos2-1,head);
+        data=carry+l2->val;
+    }
+    else
     {
-        int carry=helper(head1->next,pos1-1,head2->next,pos2-1);
-        data=head1->data+head2->data+carry;
-    } 
-    addFront(data%10);
-    return data/10;    
+        int carry=helper(l1->next,pos1-1,l2->next,pos2-1,head);
+        data=carry+l1->val+l2->val;
+    }
+    int new_data=data%10;
+    int new_carry=data/10;
+    addFront(head,new_data);
+    return new_carry;
 }
 
-void addTwoSum(Node *head1,Node *head2)
-{
-    int l1=count(head1);
-    int l2=count(head2);
-   
-    int carry=helper(head1,l1,head2,l2);
+ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
+    if(A==NULL)
+        return B;
+    if(B==NULL)
+        return A;
+
+    int l1=count(A);
+    int l2=count(B);
+    ListNode *head=NULL;
+    int carry=helper(A,l1,B,l2,head);  
     if(carry)
-        addFront(carry);
-}
-void printLL(Node* temp)
-{
-    while(temp)
-    {
-        cout<<temp->data<<" ";
-        temp=temp->next;
-    }
-    cout<<endl;
+        addFront(head,carry);
+    return head;     
 }
 
 int main() {
