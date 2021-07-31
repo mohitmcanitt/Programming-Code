@@ -1,3 +1,5 @@
+// Max-Heap
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -7,17 +9,17 @@ void heapify(vector<int>&v,int parent)
     int leftC=2*parent+1;
     int rightC=2*parent+2;
   
-    int min_index=parent; // min index will store the index of their child which have max value
+    int greatest=parent; // min index will store the index of their child which have max value
   
-    if(leftC<v.size() and v[leftC]>v[parent])
-        min_index=leftC;
-    if(rightC<v.size() and v[rightC]>v[min_index])
-        min_index=rightC;
+    if(leftC<v.size() and v[leftC]>v[greatest])
+        greatest=leftC;
+    if(rightC<v.size() and v[rightC]>v[greatest])
+        greatest=rightC;
 
-    if(min_index!=parent)
+    if(greatest!=parent)
     {
-        swap(v[parent],v[min_index]);
-        parent=min_index;
+        swap(v[parent],v[greatest]);
+        parent=greatest;
         heapify(v,parent);
     } 
 
