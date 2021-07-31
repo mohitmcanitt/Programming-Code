@@ -1,85 +1,134 @@
-/*
-INPUT
-6
-15 5 10 3 4 12
-OUTPUT
-3 12 5 15 10 4 
-
-*/
-// Implement Binary min heap
-// parent of i == (i-1)/2;
-// child of i == 2*i+1 and 2*i+2;
-
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-void insert(vector<int>&v)
-{
-    for(int i=1;i<v.size();i++) // start from index 1
+class minHeap{
+    int heap_size;
+    int capacity;
+    int *arr;
+
+    public:
+
+    minHeap(int size)
     {
-        int parent=(i-1)/2;
-        int child=i;
-         while(v[parent]>v[child] and parent>=0) // check with its parents value 
-                                // whether new inserted element doest violate min heap property
-         {
-            swap(v[parent],v[child]);
+        heap_size=0;
+        capacity=size;
+        arr=new int[capacity];
+    }
+
+    bool isFULL()
+    {
+        if(heap_size==capacity)
+            return true;
+        else
+            return false;   
+    }
+
+    bool isEmpty()
+    {
+        if(heap_size==0)
+            return true;
+        else
+            return false;    
+    }
+
+    void Upheapify(int parent,int child) // Rebuild voilated heap tree
+    {
+        while(parent>=0 and arr[parent]>arr[child])
+        {
+            int temp=arr[child];
+            arr[child]=arr[parent];
+            arr[parent]=temp;
+
             child=parent;
-            parent=(child-1)/2;
-         }
+            parent=(parent-1)/2;
+        }
     }
-}
 
-int getmin(vector<int>v)
-{
-    if(v.size()==0)
-    return -1;
-    else
-    return v[0];
-}
-bool isEmpty(vector<int>v)
-{
-    if(v.size()==0)
-    return true;
-    else 
-    return false;
-}
-
-void heapify(vector<int>v,int parent)
-{
-    int leftChild=2*parent+1;
-    int rightChild=2*parent+2;
-
-      int index=parent; // index will store the index of (leftchild,rightchild) whose value is smaller than it
-      if(leftChild<v.size() and v[parent]>leftChild)   // check only left child exist
-        index=leftChild;
-      if(rightChild<v.size() and v[index]>leftChild)
-        index=rightChild;
-
-     if(index==parent)
-        return;
-    swap(v[index],v[parent]);
-    parent=index;
-    heapify(v,parent);
-   
-    
-}
-int main()
-{
-    int n;
-    cin>>n;
-    vector<int>v;
-    while(n--)
+    void Downheapify(int parent)
     {
-        int ele;
-        cin>>ele;
-        v.push_back(ele);
+        int smallest=parent;
+
+        int left=2*parent+1;
+        int right=2*parent+2;
+        
+        if(left<heap_size and arr[left]<arr[smallest])
+            smallest=left;
+        if(right<heap_size and arr[right]<arr[smallest])
+            smallest=right;
+
+        if(smallest!=parent)
+        {
+            swap(arr[smallest],arr[parent]);
+            Downheapify(smallest);   
+        }
+                           
     }
-    insert(v); // insert in binary heap
-    while(!v.empty())
+
+    void insertKey(int val)
     {
-        cout<<getmin(v)<<" ";
-        swap(v[0],v[v.size()-1]);
-        v.pop_back();
-        heapify(v,0);
+        if(isFULL())
+            cout<<"Heap is full\n";
+        else
+        {
+            int child=heap_size;
+            int parent=(child-1)/2;
+            arr[child]=val;
+            if(arr[child]<arr[parent])
+                Upheapify(parent,child);
+           heap_size++;
+        }
     }
+
+    void delete_root()
+    {
+        if(isEmpty())
+            cout<<"Container is Empty"<<endl;
+        else
+            {
+                int res=arr[0];
+                swap(arr[0],arr[heap_size-1]);
+                Downheapify(0);
+                cout<<"Heapify : "<<res<<endl;
+                heap_size--;
+            }  
+             
+    }
+
+    void size()
+    {
+        cout<<"size of heap "<<heap_size<<endl;
+    }
+    void  extract_min()
+    {
+        if(isEmpty())
+            cout<<"Container is Empty"<<endl;
+        else
+            cout<<"Min element is "<< arr[0];    
+    }
+
+    void display()
+    {
+        for(int i=0;i<heap_size;i++)
+            cout<<arr[i]<<" ";
+        cout<<endl;
+    }
+};
+
+
+int main() {
+    minHeap obj(6);
+    obj.insertKey(15);
+    obj.insertKey(5);
+    obj.insertKey(10);
+    obj.insertKey(3);
+    obj.insertKey(4);
+    obj.insertKey(12);
+    obj.display();
+    obj.delete_root();
+    obj.display();    
 }
+/*
+3 4 10 15 5 12 
+Heapify : 3
+4 5 10 15 12 
+*/
