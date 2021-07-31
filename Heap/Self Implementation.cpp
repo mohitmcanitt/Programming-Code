@@ -31,7 +31,7 @@ class minHeap{
             return false;    
     }
 
-    void Upheapify(int parent,int child) // Rebuild voilated heap tree
+    void Upheapify(int parent,int child) // Due to insertion of new element , heap property gets violated
     {
         while(parent>=0 and arr[parent]>arr[child])
         {
@@ -44,7 +44,7 @@ class minHeap{
         }
     }
 
-    void Downheapify(int parent)
+    void Downheapify(int parent)  // Due to deletion 
     {
         int smallest=parent;
 
