@@ -1,3 +1,14 @@
+/*
+{
+{10,15,20,30},
+{2,5,8,14,24},
+{0,11,30,90}
+}
+
+Output: 0 2 5 8 10 11 14 15 20 24 30 30 90
+*/
+#include<bits/stdc++.h>
+using namespace std;
 class helper{
     public:
 
@@ -12,7 +23,6 @@ class helper{
         this->iPos=iPos;
     }
 };
-
 class compare{
     public:
     bool operator()(helper h1,helper h2)
@@ -21,14 +31,12 @@ class compare{
     }
 };
 
-
-    //Function to merge k sorted arrays.
-    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
-    {
-        //code here
+vector<int> mergeKArrays(vector<vector<int> > arr){
+    
+    //Complete this function
         priority_queue<helper,vector<helper>,compare>pq;
 
-        for(int i=0;i<K;i++)
+        for(int i=0;i<arr.size();i++)
         {
             helper h(arr[i][0],i,0);
             pq.push(h);
@@ -40,7 +48,7 @@ class compare{
             helper obj=pq.top();
             pq.pop();
             ans.push_back(obj.val);
-            if(obj.iPos==K-1)
+            if(obj.iPos==(arr[obj.aPos].size())-1)
                 continue;
             else
                 {
@@ -48,5 +56,7 @@ class compare{
                     pq.push(h);
                 }    
         }
-         return ans;
-    }
+         return ans;    
+    
+    
+}
