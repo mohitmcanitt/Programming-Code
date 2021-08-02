@@ -1,63 +1,50 @@
-/*
-INPUT
-8 3 2 7 10 9 11 -1
-OUTPUT
-2 3 7 8 9 10 11
-*/
-
-
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 class node{
-     public:
+    public:
     int data;
-    node* left;
+    node *left;
     node *right;
-   
-    node(int d)
+
+    node(int data)
     {
-        data=d;
+        this->data=data;
         left=NULL;
         right=NULL;
     }
 };
-node *InsertInBST(node *root,int data)
+
+void insert(node *&root,int val)
 {
+    
     if(root==NULL)
-    return new node(data);  // create a new node
-
-    if(root->data>=data)
-        root->left=InsertInBST(root->left,data);
-    else
-        root->right=InsertInBST(root->right,data);
-
-     return root;   
-}
-
-node *buildBST(node *root)
-{
-     int val;
-    cin>>val;
-    while(val!=-1)  // Create a BST until it encounters -1
     {
-        root=InsertInBST(root,val);
-        cin>>val;
+        node* new_node=new node(val);
+        root=new_node;
+        return;
     }
-    return root;    
+    if(val<root->data)
+        insert(root->left,val);
+    else
+        insert(root->right,val);    
 }
 
-void inorder(node *root)
+void print(node *root)
 {
     if(root==NULL)
-    return;
-    inorder(root->left);
+        return;
+    print(root->left);
     cout<<root->data<<" ";
-    inorder(root->right);
+    print(root->right);    
 }
 
-int main()
-{
-    node *root=buildBST(NULL);
-    inorder(root);
+int main() {
+    node *root=NULL;
+    insert(root,10);
+    insert(root,20);
+    insert(root,5);
+    print(root);
+
+
 }
