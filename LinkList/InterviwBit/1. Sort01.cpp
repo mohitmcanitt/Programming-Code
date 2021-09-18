@@ -1,4 +1,9 @@
 /*
+
+Maintain 2 pointers named zero and one to point to current ending nodes of linked lists containing 0 and 1 respectively.
+For every traversed node, we attach it to the end of its corresponding list.
+Finally we link both the lists.
+
  create two dummy node i.e. ones and zeroes
  zeros will point to linklist containging 0 only
  ones will point to linklist containing 1 only 
