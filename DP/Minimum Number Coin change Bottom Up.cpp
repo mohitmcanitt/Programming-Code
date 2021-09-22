@@ -43,3 +43,22 @@ int main() {
     int amount=3;
     cout<<solve(coins,amount);
 }
+
+/*
+
+long dp[10001];
+    int coinChange(vector<int>& coins, int amount) {
+        
+        for(int curr_amt=1;curr_amt<=amount;curr_amt++)
+        {
+            long min_coins=INT_MAX; // minimum coins required to make change of current amount
+            for(auto denomination:coins)
+            {
+                if(curr_amt-denomination>=0)
+                    min_coins=min(min_coins,1+dp[curr_amt-denomination]);
+            }
+            dp[curr_amt]=min_coins;
+        }
+        return dp[amount]==INT_MAX?-1:dp[amount];
+    }
+*/
