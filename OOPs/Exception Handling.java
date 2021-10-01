@@ -14,3 +14,20 @@ public class Main {
 
     }
 }
+/*
+
+public class Main {
+    public static void main(String args[]) {
+        int a=5;
+        int b=0;
+
+        if(b==0)
+        {
+            throw new ArithmeticException();
+        }
+        System.out.println("Last Line");
+
+    }
+}
+
+*/
