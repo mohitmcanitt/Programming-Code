@@ -1,3 +1,5 @@
+// refer for approach : https://takeuforward.org/data-structure/program-to-generate-pascals-triangle/
+
 #include<iostream>
 using namespace std;
 
