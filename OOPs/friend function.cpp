@@ -9,7 +9,7 @@ using namespace std;
 
 class A{
     int a;
-    friend void display();
+    friend void display(A);
     public:
     A(int a){
         this->a=a;
