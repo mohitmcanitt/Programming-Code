@@ -7,14 +7,6 @@
 #include <iostream>
 using namespace std;
 
-class A{
-    int a;
-    friend void display(A);
-    public:
-    A(int a){
-        this->a=a;
-    }
-
 class A
 {
     int a_;
@@ -25,7 +17,7 @@ public:
 };
 
 void display(A obj){
-    cout<<obj.a;
+    cout<<obj.a_;
 }
 
 int main() {
