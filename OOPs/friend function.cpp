@@ -7,42 +7,22 @@
 #include <iostream>
 using namespace std;
 
-class B;
-
 class A{
     int a;
-    friend void big(A,B);
+    friend void display();
     public:
-    void set_A(int x)
-    {
-        a=x;
+    A(int a){
+        this->a=a;
     }
 };
 
-class B{
-    int b;
-    friend void big(A,B);
-    public:
-    void set_B(int x)
-    {
-        b=x;
-    }
-};
-
-void big(A obj1,B obj2)
-{
-    if(obj1.a>obj2.b)  
-        cout<<"A is big than B";
-    else if(obj1.a<obj2.b)
-        cout<<"B is big than A";
-    else
-        cout<<"A is equal to B";        
+void display(A obj){
+    cout<<obj.a;
 }
 
 int main() {
-    A a1;
-    a1.set_A(10);
-    B b1;
-    b1.set_B(20);
-    big(a1,b1);
+    A obj(10);
+    display(obj)
 }
+
+
