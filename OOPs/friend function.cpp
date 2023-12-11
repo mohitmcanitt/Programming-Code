@@ -2,7 +2,7 @@
 // data member of class to outside without 
 // member function of that class.
 // friend function is non member of class
-// 
+//
 
 #include <iostream>
 using namespace std;
@@ -14,6 +14,14 @@ class A{
     A(int a){
         this->a=a;
     }
+
+class A
+{
+    int a_;
+    friend void display(A);
+
+public:
+    A(int a) : a_(a){};
 };
 
 void display(A obj){
