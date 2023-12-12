@@ -7,6 +7,7 @@ It started with introduction.
 Interviewer told about company and its working.
 Tell me a situation when you face difficulties and how did you tackled it (from academics/ coporate)
 How much do we rate yourself in CPP
+Template used in Current project team
 Advance concepts in cpp
 Copy construnctor, Move semantics(Imp)
 STL, Smart pointer, boost library
