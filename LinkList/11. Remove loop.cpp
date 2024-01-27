@@ -50,7 +50,7 @@ Node* detectLoop(Node* head)
                 temp2=temp2->next;
         }    
         else
-        {
+        {   // It is floyd's cycle finding. Watch Anuj Bhaiya video' 7:30
             while(temp1->next!=temp2->next)
             {
                 temp1=temp1->next;

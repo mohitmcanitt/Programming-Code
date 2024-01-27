@@ -1,0 +1,21 @@
+// Date : 12 Dec
+// HR Name : Mahesh Chandra (84600 06393)
+// Got referal through : Himanshu Shivnani
+// Interviewer Name : Sandip Dutt
+
+It started with introduction.
+Interviewer told about company and its working.
+Tell me a situation when you face difficulties and how did you tackled it (from academics/ coporate)
+How much do we rate yourself in CPP
+Template used in Current project team
+Advance concepts in cpp
+Copy construnctor, Move semantics(Imp)
+STL, Smart pointer, boost library
+Given an array, Tell me different time complexity of finding a key. (0(1))
+Why unordered find function takes 0(1) time.
+Code that will return y = 1/x
+Multithreading
+Process vs threading
+In case of multi-threading, How common variables will be handled. (Locking mechansim)
+Left view of tree
+Given a shape, find area of circle that will enclosed that shape
