@@ -65,7 +65,31 @@ node *buildTree()
     root->right=buildTree();
     return root;
 }
-
+/*
+   vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (root == nullptr)
+            return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int levelSize = q.size(); // caculate size of each level
+            vector<int> level_ans;
+            TreeNode* temp;
+            for (int i = 1; i <= levelSize; i++) {
+                temp = q.front();
+                q.pop();
+                level_ans.push_back(temp->val);
+                if (temp->left)
+                    q.push(temp->left);
+                if (temp->right)
+                    q.push(temp->right);
+            }
+            ans.push_back(level_ans);
+        }
+        return ans;
+    }
+*/
 void levelorder(node *root)
 {
 
