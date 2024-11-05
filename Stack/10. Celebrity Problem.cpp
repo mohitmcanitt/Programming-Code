@@ -47,44 +47,59 @@ Approach : (a,b)=1 means a knows b , discard a , add b in stack as potetial answ
 
 */
 
-int findJudge(int n, vector<vector<int>>& trust) {
-        if(trust.size()==0 and n==1) // n=1 and trust [[]]
-            return 1;
-        if(trust.size()==0 and n!=1) // n=3 and trust [[]]
-            return -1;
-        
-        
-        vector<vector<int>>vect(n,vector<int>(n,0));
-        stack<int>st;
-        for(int i=0;i<trust.size();i++)
-        {
-            int x=trust[i][0]-1; // to make 0 based indexing
-            int y=trust[i][1]-1;
-            vect[x][y]=1;
-            st.push(y); // x knows y : means x cann't be potetial judge
-        }
-        while(st.size()>=2)
-        {
-            int x=st.top();
-            st.pop();
-            int y=st.top();
-            st.pop();
-            if(vect[x][y]==1)
-                st.push(y);
-            else
-                st.push(x);
-        }
-        int pot=st.top();
-        for(int i=0;i<n;i++)
-        {
-            if(i!=pot)
-            {
-                if(vect[pot][i]==1 or vect[i][pot]==0)
-                    return -1;
-            }
-        }
-        return pot+1;
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int findCelebrity(vector<vector<int>> &vec)
+{
+  int row = vec.size();
+  int col = vec[0].size();
+
+  stack<int> st;
+  for (int i = 0; i < row; i++)
+  {
+    st.push(i);
+  }
+  while (st.size() > 1)
+  {
+    int Person_A = st.top();
+    st.pop();
+    int Person_B = st.top();
+    st.pop();
+
+    if (vec[Person_A][Person_B] == 1)
+    {
+      st.push(Person_B);
     }
+    else
+    {
+      st.push(Person_A);
+    }
+  }
+
+  // Step 3: Verify if the last person is a celebrity
+  if (st.empty())
+    return -1; // No celebrity found
+  int potentialCelebrity = st.top();
+
+  // Check if potentialCelebrity knows no one and is known by everyone
+  for (int i = 0; i < row; i++)
+  {
+    if (i != potentialCelebrity)
+    {
+      // A celebrity should not know anyone
+      if (vec[potentialCelebrity][i] == 1)
+        return -1;
+      // Everyone else should know the celebrity
+      if (vec[i][potentialCelebrity] == 0)
+        return -1;
+    }
+  }
+
+  return potentialCelebrity;
+}
 
 // Method 3
 
