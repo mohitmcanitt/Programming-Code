@@ -1,94 +1,82 @@
-/*
-removed item is 30
-Items in stacks are 20 10 
-Top element is 20
-*/
+#include <iostream>
 
-#include<iostream>
-using namespace std;
+template <typename T>
+class Stack
+{
+  int size_;
+  T *arr_;
+  int top_;
 
-class st{
-    int size;
-    int *arr;
-    int top=-1;
-    public:
-    st(int n)
-    {
-        size=n;
-        arr=new int[size];
-    }
-    void insert(int val)
-    {
-        if(top==size)
-        {
-            cout<<"stack is full\n";
-            return;
-        }
-        else
-        {
-            top=top+1;
-            arr[top]=val;
-        }
-           
-    }
-    void remove()
-    {
-        if(isempty())
-        {
-            cout<<"Stack is underflow\n";
-            return;
-        }
-        else
-        {
-            cout<<"removed item is "<<arr[top]<<endl;
-            top=top-1;
-        }
-    }
-    void top_element()
-    {
-        if(isempty())
-        {
-            cout<<"Stack is underflow\n";
-            return;
-        }    
-        else
-            cout<<"Top element is "<<arr[top]<<endl;
-        
-    }
-    bool isempty()
-    {
-        if(top==-1)
-            return true;
-        else
-            return false;    
+public:
+  // Constructor
+  Stack(int size) : size_(size), arr_(new T[size]), top_(-1) {}
 
-    }
-    void printelement()
-    {
-        if(isempty())
-        {
-             cout<<"Stack is empty\n";
-            return;
-        }
-        else
-        {
-            cout<<"Items in stacks are ";
-            for(int i=top;i>=0;i--)
-                cout<<arr[i]<<" ";
-                cout<<endl;
-        }   
-        return;
-    }
+  // Destructor to prevent memory leaks
+  ~Stack()
+  {
+    delete[] arr_;
+  }
 
+  bool push(T ele)
+  {
+    if (isFull())
+    {
+      std::cout << "Overflow" << std::endl;
+      return false;
+    }
+    arr_[++top_] = ele;
+    return true;
+  }
+
+  void pop()
+  {
+    if (isEmpty())
+    {
+      std::cout << "Underflow" << std::endl;
+    }
+    else
+    {
+      top_--;
+    }
+  }
+
+  void top_element() const
+  {
+    if (isEmpty())
+      std::cout << "Underflow" << std::endl;
+    else
+      std::cout << "Top element is " << arr_[top_] << std::endl;
+  }
+
+  bool isEmpty() const
+  {
+    return top_ == -1;
+  }
+
+  bool isFull() const
+  {
+    return top_ == size_ - 1;
+  }
+
+  void print() const
+  {
+    for (int i = top_; i >= 0; i--)
+    {
+      std::cout << arr_[i] << " ";
+    }
+    std::cout << std::endl;
+  }
 };
 
-int main() {
-    st obj(5);
-    obj.insert(10);
-    obj.insert(20);
-    obj.insert(30);
-   
-    obj.remove();
-    obj.printelement();
-    obj.top_element();
+int main()
+{
+  Stack<int> st1(5);
+  st1.push(34);
+  st1.push(30);
+  st1.push(20);
+  st1.push(15);
+  st1.push(10);
+  st1.push(5); // This should print "Overflow"
+  st1.print();
+  return 0;
 }
