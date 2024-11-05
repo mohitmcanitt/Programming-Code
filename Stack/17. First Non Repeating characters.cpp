@@ -53,31 +53,33 @@ Approach 2: Using Queue time 0(n) and space 0(n)
   v). If stack is empty append '#'
   
  */
-string FirstNonRepeating(string A){
-		    // Code here
-		    queue<char>q;
-		    int freq[26]={0};
-		    string ans="";
-		    for(int i=0;i<A.length();i++)
-		    {
-		        q.push(A[i]);
-		        freq[A[i]-'a']++;
-		        while(!q.empty())
-		        {
-		            if(freq[q.front()-'a']>1)
-		                    q.pop();
-		            else
-		                {
-		                    ans+=q.front();
-		                    break;
-		                }
-		        }
-		        if(q.empty())
-		            ans+='#';
-		    }
-		    return ans;
-		}
-  
+string FirstNonRepeating(string &s) {
+    string ans;
+    queue<char> q;
+    vector<int> freq(26, 0);
+    
+    for (const auto& ch : s) {
+        freq[ch - 'a']++;
+        
+        if (freq[ch - 'a'] == 1) {
+            q.push(ch);
+        }
+        
+        // Check the front of the queue for non-repeating character
+        while (!q.empty() && freq[q.front() - 'a'] > 1) {
+            q.pop(); // Remove characters that have become repeating
+        }
+        
+        // If queue is not empty, the front is the first non-repeating character
+        if (!q.empty()) {
+            ans += q.front();
+        } else {
+            ans += '#'; // No non-repeating character found
+        }
+    }
+    
+    return ans;
+}
   
   
 
