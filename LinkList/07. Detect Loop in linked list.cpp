@@ -2,7 +2,7 @@
 // Using two loops
 
 // Time : o(n) 
-// Space : 0(1)
+// Space : 0(n)
 
 bool detectLoop(Node* head)
     {
