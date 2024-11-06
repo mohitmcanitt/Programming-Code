@@ -32,75 +32,83 @@ C S D E F A G H B
 */
 
 
-#include<bits/stdc++.h>
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <queue>  // Include the queue header for BFS
 using namespace std;
 
-class Graph{
-    int V;
-    map<char,vector<char>>m;
+template <typename T>
+class Graph {
+    int v;  // Number of vertices
+    unordered_map<T, vector<T>> m;  // Adjacency list with unordered_map
 
-    public:
-    Graph(int v)
-    {
-        V=v;
+public:
+    // Constructor to initialize the number of vertices
+    Graph(int v) {
+        this->v = v;
     }
 
-    void addEdge(char u,char v)
-    {
-        m[u].push_back(v);
-        m[v].push_back(u);
-    }
-    
-    void printEdge()
-    {
-        for(auto vertex:m)
-            {
-                cout<<vertex.first<<"-->";
-                for(auto nbhrs:vertex.second)
-                cout<<nbhrs<<",";
-                cout<<endl;
-            }
+    // Function to add an edge between two vertices
+    void addEdge(T src, T dest) {
+        m[src].push_back(dest);
+        m[dest].push_back(src);  // Since it's an undirected graph
     }
 
-    void bfs(char src)
-    {
-        set<char>s;
-        s.insert(src);
-        queue<char>q;
-        q.push(src);
-
-        while(!q.empty())
-        {
-            char temp=q.front();
-            q.pop();
-            for(auto nbhr:m[temp])
-            {
-                if(!s.count(nbhr))
-                    {
-                        s.insert(nbhr);
-                        q.push(nbhr);
-                    }
-            }
-            cout<<temp<<" ";
+    // Function to print the edges of the graph
+    void printEdge() {
+        for (auto& vertex : m) {
+            cout << vertex.first << "-->";
+            for (auto& nbhr : vertex.second)
+                cout << nbhr << ",";
+            cout << endl;
         }
     }
+
+    // BFS function to traverse the graph from a source vertex
+    void bfs(T src) {
+        unordered_set<T> visited;  // Use unordered_set for average O(1) complexity
+        queue<T> q;      // Queue for BFS
+        q.push(src);     // Start with the source vertex
+        visited.insert(src);  // Mark the source as visited
+
+        while (!q.empty()) {
+            T temp = q.front();
+            q.pop();
+            cout << temp << " ";  // Print the current vertex
+
+            // Process all the neighbors of the current vertex
+            for (auto& nbhr : m[temp]) {
+                if (visited.count(nbhr) == 0) {
+                    q.push(nbhr);       // Add unvisited neighbor to the queue
+                    visited.insert(nbhr);  // Mark neighbor as visited
+                }
+            }
+        }
+        cout << endl;
+    }
 };
-int main()
-{
-    Graph g(10);
-    g.addEdge('A','B');
-    g.addEdge('A','S');
-    g.addEdge('S','C');
-    g.addEdge('C','D');
-    g.addEdge('S','G');
-    g.addEdge('G','F');
-    g.addEdge('C','E');
-    g.addEdge('C','F');
-    g.addEdge('E','H');
-    g.addEdge('G','H');
-    g.printEdge();
 
-    g.bfs('C');
+int main() {
+    Graph<char> g(10);  // Create a graph with 10 vertices (max vertices will be determined by input)
+    g.addEdge('A', 'B');
+    g.addEdge('A', 'S');
+    g.addEdge('S', 'C');
+    g.addEdge('C', 'D');
+    g.addEdge('S', 'G');
+    g.addEdge('G', 'F');
+    g.addEdge('C', 'E');
+    g.addEdge('C', 'F');
+    g.addEdge('E', 'H');
+    g.addEdge('G', 'H');
 
+    cout << "Graph edges:" << endl;
+    g.printEdge();  // Print the graph's adjacency list
+
+    cout << "BFS traversal starting from node C:" << endl;
+    g.bfs('C');  // Perform BFS starting from node 'C'
+
+    return 0;
 }
 
