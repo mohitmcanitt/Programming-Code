@@ -20,31 +20,25 @@
         no need to increment mid as the value at mid now can either 0,1 or 2
         
         
-  
+https://leetcode.com/problems/sort-colors/  
 */
 
-void sort012(int a[], int n)
+void sort012(vector<int>& nums)
     {
-        // coode here 
-        int low=0;
-        int mid=0;
-        int high=n-1;
-        
-        while(mid<=high)
-        {
-            if(a[mid]==1)
+        int low = 0;
+        int mid = 0;
+        int high = nums.size() - 1;
+
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                swap(nums[low], nums[mid]);
+                low++;
                 mid++;
-            else if(a[mid]==0)
-            {
-                 swap(a[low],a[mid]);
-                 low++;
-                 mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
+                swap(nums[high], nums[mid]);
+                high--;
             }
-            else if(a[mid]==2)
-            {
-                swap(a[mid],a[high]);
-                high--;       
-            }
-                
         }
     }
