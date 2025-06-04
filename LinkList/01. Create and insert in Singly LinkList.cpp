@@ -1,49 +1,66 @@
 #include <iostream>
 using namespace std;
 
-class node{
-    public:
+class ListNode {
+public:
+    int val;
+    ListNode* next;
 
-    int data;
-    node *next;
-    node(int val)
-    {
-        data=val;
-        next=NULL;
+    ListNode(int val) : val(val), next(nullptr) {}
+};
+
+class LinkedList {
+private:
+    ListNode* head;
+
+public:
+    LinkedList() : head(nullptr) {}
+
+    // Insert at end
+    void append(int val) {
+        ListNode* newNode = new ListNode(val);
+        if (!head) {
+            head = newNode;
+            return;
+        }
+
+        ListNode* temp = head;
+        while (temp->next)
+            temp = temp->next;
+
+        temp->next = newNode;
+    }
+
+    // Print list
+    void print() const {
+        ListNode* temp = head;
+        while (temp) {
+            cout << temp->val << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    // Destructor to clean up memory
+    ~LinkedList() {
+        ListNode* temp = head;
+        while (temp) {
+            ListNode* nextNode = temp->next;
+            delete temp;
+            temp = nextNode;
+        }
     }
 };
 
-node *insert(node *head,int val)
-{
-    node *new_node=new node(val);
-    if(head==NULL)
-        head=new_node;
-    else
-    {
-        node *temp=head;
-        while(temp->next!=NULL)
-            temp=temp->next;
-        temp->next=new_node;    
-    }    
-    return head;
-}
-
-void printLL(node *head)
-{
-    node *temp=head;
-    while(temp)
-    {
-        cout<<temp->data<<" ";
-        temp=temp->next;
-    }
-    cout<<endl;
-}
 int main() {
-    node *head=insert(NULL,10);
-    insert(head,20);
-    insert(head,30);
-    insert(head,40);
-    insert(head,50);
-    printLL(head);
+    LinkedList list;
+    list.append(5);
+    list.append(10);
+    list.append(20);
+    list.append(30);
+    list.append(40);
+    list.append(50);
+
+    list.print();
+    return 0;
 }
-// Output: 10 20 30 40 50
