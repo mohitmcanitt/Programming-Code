@@ -54,3 +54,51 @@ int main() {
 
     return 0;
 }
+
+// Method 2
+
+/*
+5
+6
+0 1 10
+0 4 20
+1 2 30
+3 4 40
+1 3 50
+2 3 60
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct Graph {
+    int vertex;   // renamed to avoid confusion
+    int weight;
+};
+
+int main() {
+    int vertices, edges;
+    cin >> vertices >> edges;
+
+    vector<Graph> adj[vertices];
+
+    while (edges--) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        Graph node{v, w};
+        adj[u].push_back(node); 
+    }
+
+    for (int i = 0; i < vertices; i++) {
+        cout << i << " -> ";
+        for (const auto& nb : adj[i]) {
+            cout << "(" << nb.vertex << ", " << nb.weight << ") ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
